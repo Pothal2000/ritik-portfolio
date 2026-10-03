@@ -1,0 +1,122 @@
+<main class="cv-page">
+  <div class="cv-toolbar" aria-label="Resume actions">
+    <a class="back-link" routerLink="/" aria-label="Back to portfolio">
+      <span aria-hidden="true">←</span> Portfolio
+    </a>
+    <p class="toolbar-hint">ATS-friendly · direct PDF download</p>
+    <button
+      class="download-button"
+      type="button"
+      (click)="downloadCv()"
+      [disabled]="isDownloading()"
+      [attr.aria-busy]="isDownloading()"
+    >
+      <svg viewBox="0 0 20 20" aria-hidden="true">
+        <path d="M10 2.5v9m0 0 3.4-3.4M10 11.5 6.6 8.1M4 13v3.5h12V13" />
+      </svg>
+      {{ isDownloading() ? 'Preparing PDF…' : 'Download PDF' }}
+    </button>
+  </div>
+  @if (downloadError()) {
+    <p class="download-error" role="alert">{{ downloadError() }}</p>
+  }
+
+  <article class="cv-document" aria-labelledby="cv-name">
+    <header class="cv-header">
+      <div class="identity">
+        <p class="document-label">SOFTWARE ENGINEERING <span>·</span> FULL-STACK DEVELOPMENT</p>
+        <h1 id="cv-name">{{ cv.name }}</h1>
+        <p class="role-title">{{ cv.title }}</p>
+      </div>
+      <address class="contact-list">
+        <a [href]="'mailto:' + cv.email">{{ cv.email }}</a>
+        <a [href]="'tel:' + cv.phone.replaceAll(' ', '')">{{ cv.phone }}</a>
+        <a [href]="cv.linkedin" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+        <a [href]="cv.github" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+        <span>{{ cv.location }}</span>
+      </address>
+    </header>
+
+    <section class="summary-section" aria-labelledby="summary-title">
+      <h2 id="summary-title">PROFESSIONAL SUMMARY</h2>
+      <p>{{ cv.summary }}</p>
+    </section>
+
+    <div class="cv-columns">
+      <div class="primary-column">
+        <section class="cv-section experience-section" aria-labelledby="experience-title">
+          <h2 id="experience-title"><span class="section-index">01</span> WORK EXPERIENCE</h2>
+          @for (experience of cv.experience; track experience.company) {
+            <article class="experience-entry">
+              <div class="entry-heading">
+                <div>
+                  <h3>{{ experience.role }}</h3>
+                  <p class="company">{{ experience.company }} <span>·</span> {{ experience.location }}</p>
+                </div>
+                <p class="date-range">{{ experience.start }} — {{ experience.end }}</p>
+              </div>
+              <ul>
+                @for (highlight of experience.highlights; track highlight) {
+                  <li>{{ highlight }}</li>
+                }
+              </ul>
+            </article>
+          }
+        </section>
+
+        <section class="cv-section skills-section" aria-labelledby="skills-title">
+          <h2 id="skills-title"><span class="section-index">02</span> TECHNICAL SKILLS</h2>
+          <dl class="skills-list">
+            @for (group of cv.skills; track group.category) {
+              <div class="skill-row">
+                <dt>{{ group.category }}</dt>
+                <dd>{{ group.items.join(' · ') }}</dd>
+              </div>
+            }
+          </dl>
+        </section>
+
+        <section class="highlight-section" aria-label="Selected achievement">
+          <span class="highlight-icon" aria-hidden="true">↗</span>
+          <p><strong>SELECTED ACHIEVEMENT</strong>{{ cv.achievement }}</p>
+        </section>
+      </div>
+
+      <aside class="secondary-column">
+        <section class="cv-section" aria-labelledby="education-title">
+          <h2 id="education-title"><span class="section-index">03</span> EDUCATION</h2>
+          @for (education of cv.education; track education.qualification) {
+            <article class="compact-entry">
+              <h3>{{ education.qualification }}</h3>
+              @if (education.institution) {
+                <p>{{ education.institution }}</p>
+              }
+              <span>{{ education.detail }}</span>
+            </article>
+          }
+        </section>
+
+        <section class="cv-section certifications-section" aria-labelledby="certifications-title">
+          <h2 id="certifications-title"><span class="section-index">04</span> PROFESSIONAL DEVELOPMENT</h2>
+          <ul class="compact-list">
+            @for (certification of cv.certifications; track certification) {
+              <li>{{ certification }}</li>
+            }
+          </ul>
+        </section>
+
+        <section class="cv-section" aria-labelledby="languages-title">
+          <h2 id="languages-title"><span class="section-index">05</span> LANGUAGES</h2>
+          <p class="inline-list">{{ cv.languages.join(' · ') }}</p>
+        </section>
+
+        <section class="cv-section interests-section" aria-labelledby="interests-title">
+          <h2 id="interests-title"><span class="section-index">06</span> INTERESTS</h2>
+          <p class="inline-list">{{ cv.interests.join(' · ') }}</p>
+        </section>
+      </aside>
+    </div>
+
+  </article>
+
+</main>

@@ -1,59 +1,56 @@
-# RitikPortfolio
+# Ritik Pothal — Developer Portfolio
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.0.
+A responsive, developer-focused portfolio built with Angular, TypeScript, SCSS, and a lightweight Three.js hero scene.
 
-## Development server
-
-To start a local development server, run:
+## Run locally
 
 ```bash
-ng serve
+npm install
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open `http://localhost:4200/` in your browser.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Build and test
 
 ```bash
-ng generate component component-name
+npm run build
+npm test
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The production build is compatible with static hosting on Vercel.
+
+## Experience
+
+- Responsive single-page portfolio with work, skills, about, journey, and contact sections.
+- Searchable command palette; open it with `Ctrl + K` or `⌘ + K`.
+- Keyboard navigation and focus management in the command palette.
+- Dark and light themes.
+- Abstract Three.js hero scene, loaded on demand and paused when offscreen or when reduced motion is enabled.
+- Honors the user's reduced-motion preference and keeps core content usable without WebGL.
+- Data-driven CV at `/resume`; **Download PDF** immediately saves a searchable PDF with clickable email, phone, LinkedIn, and GitHub links.
+
+## Source structure
+
+```text
+src/app/
+├── components/
+│   └── hero-scene/            # Reusable Three.js canvas component
+├── pages/
+│   ├── cv-page/               # Data-driven CV and print stylesheet
+│   └── portfolio-page/        # Routed portfolio page, template, styles, and tests
+├── data/
+│   └── cv-data.ts             # Editable CV content
+├── app.config.ts              # Application-level providers
+├── app.routes.ts              # Lazy-loaded page routes
+└── app.ts                     # Root router outlet
+```
+
+Generate additional standalone components with Angular CLI:
 
 ```bash
-ng generate --help
+npx ng generate component components/component-name
+npx ng generate component pages/page-name
 ```
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Project descriptions and technology lists are intentionally limited to details supplied for the portfolio. Edit `src/app/data/cv-data.ts` to update CV content; the `/resume` page and downloaded PDF are generated from that data.

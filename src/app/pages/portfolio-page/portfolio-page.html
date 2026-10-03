@@ -1,0 +1,191 @@
+<header class="site-header">
+  <a class="wordmark" href="#home" aria-label="Ritik Pothal, home">
+    <span class="wordmark-mark">RP</span>
+    <span>RITIK <span class="wordmark-light">POTHAL</span></span>
+  </a>
+
+  <nav class="desktop-nav" aria-label="Main navigation">
+    @for (item of navItems; track item.id) {
+      <a [href]="'#' + item.id" [class.active]="activeSection() === item.id">
+        {{ item.label }}
+      </a>
+    }
+  </nav>
+
+  <div class="nav-actions">
+    <button class="theme-toggle" type="button" (click)="toggleTheme()" [attr.aria-label]="lightTheme() ? 'Switch to dark theme' : 'Switch to light theme'">
+      @if (lightTheme()) {
+        <span aria-hidden="true">☾</span>
+      } @else {
+        <span aria-hidden="true">☼</span>
+      }
+    </button>
+    <button class="shortcut-button" type="button" (click)="openPalette()" aria-label="Open command palette">
+      <span class="shortcut-icon" aria-hidden="true">⌘</span><span>K</span>
+    </button>
+    <button class="mobile-menu-button" type="button" (click)="toggleMobileMenu()" [attr.aria-expanded]="mobileMenuOpen()" aria-controls="mobile-navigation" aria-label="Toggle navigation">
+      <span></span><span></span>
+    </button>
+  </div>
+
+  @if (mobileMenuOpen()) {
+    <nav id="mobile-navigation" class="mobile-nav" aria-label="Mobile navigation">
+      @for (item of navItems; track item.id) {
+        <a [href]="'#' + item.id" (click)="closeMobileMenu()">{{ item.label }}</a>
+      }
+    </nav>
+  }
+</header>
+
+<main>
+  <section class="hero section-shell" id="home" aria-labelledby="hero-title">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <app-hero-scene class="hero-scene"></app-hero-scene>
+    <div class="hero-content">
+      <p class="eyebrow"><span class="eyebrow-line"></span> SOFTWARE DEVELOPER <span class="eyebrow-index">/ 01</span></p>
+      <h1 id="hero-title">I build software,<br />solve problems<span class="accent-period">.</span><br />And explore what's next<span class="accent-period">.</span></h1>
+      <p class="hero-copy">I’m Ritik Pothal — a developer who enjoys turning complex ideas into thoughtful, useful software.</p>
+      <ul class="hero-stack" aria-label="Technologies">
+        @for (technology of technologies; track technology) {
+          <li>{{ technology }}</li>
+        }
+      </ul>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#work">Explore my work <span aria-hidden="true">↘</span></a>
+        <a class="button button-quiet" routerLink="/resume">View CV <span aria-hidden="true">↗</span></a>
+        <a class="button button-quiet" href="https://github.com/Pothal2000" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="currently-building">
+        <span class="status-dot" aria-hidden="true"></span>
+        <div>
+          <span class="status-label">CURRENTLY BUILDING</span>
+          <p>ForgeEngine</p>
+        </div>
+      </div>
+    </div>
+    <div class="hero-aside" aria-hidden="true">
+      <span class="aside-index">R / 01</span>
+      <span class="aside-caption">3D / LIVE<br />WEBGL SCENE</span>
+    </div>
+    <a class="scroll-cue" href="#work"><span></span> SCROLL TO EXPLORE</a>
+  </section>
+
+  <section class="work-section section-shell" id="work" aria-labelledby="work-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow"><span class="eyebrow-line"></span> SELECTED WORK <span class="eyebrow-index">/ 02</span></p>
+        <h2 id="work-title">Building things<br />that <span class="serif-accent">move ideas forward.</span></h2>
+      </div>
+      <p class="section-intro">A look at what I’m working on and the kinds of engineering problems I like to explore.</p>
+    </div>
+
+    <div class="project-grid">
+      <article class="project-card project-card-engine">
+        <div class="project-topline"><span>01 — IN DEVELOPMENT</span><span class="project-arrow" aria-hidden="true">↗</span></div>
+        <div class="project-visual engine-visual" aria-hidden="true">
+          <div class="engine-orbit orbit-one"></div>
+          <div class="engine-orbit orbit-two"></div>
+          <div class="engine-core"><span>F</span></div>
+          <span class="visual-label visual-label-top">SYSTEM / 001</span>
+          <span class="visual-label visual-label-bottom">CORE IN DEVELOPMENT</span>
+        </div>
+        <div class="project-meta"><span class="project-kind">ENGINEERING PROJECT</span><span class="project-year">IN DEVELOPMENT</span></div>
+        <h3>ForgeEngine</h3>
+        <p>Currently in development: a software engineering project focused on engine architecture, systems design, and building reliable tools.</p>
+        <div class="tag-list"><span>C++</span><span>Systems</span><span>Architecture</span></div>
+      </article>
+    </div>
+    <a class="text-link" href="https://github.com/Pothal2000" target="_blank" rel="noopener noreferrer">More code on GitHub <span aria-hidden="true">↗</span></a>
+  </section>
+
+  <section class="skills-section section-shell" id="skills" aria-labelledby="skills-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow"><span class="eyebrow-line"></span> THE TOOLKIT <span class="eyebrow-index">/ 03</span></p>
+        <h2 id="skills-title">Tools are just tools.<br /><span class="serif-accent">The thinking is what counts.</span></h2>
+      </div>
+      <p class="section-intro">Technologies I work with, learn, and use to turn a problem into a practical solution.</p>
+    </div>
+    <div class="skills-grid">
+      @for (group of skillGroups; track group.title; let index = $index) {
+        <article class="skill-card">
+          <span class="skill-number">0{{ index + 1 }}</span>
+          <h3>{{ group.title }}</h3>
+          <p>{{ group.description }}</p>
+          <div class="tag-list">
+            @for (skill of group.skills; track skill) { <span>{{ skill }}</span> }
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="about-section section-shell" id="about" aria-labelledby="about-title">
+    <div class="about-heading">
+      <p class="eyebrow"><span class="eyebrow-line"></span> A LITTLE ABOUT ME <span class="eyebrow-index">/ 04</span></p>
+      <h2 id="about-title">Curious by default.<br /><span class="serif-accent">Builder by choice.</span></h2>
+    </div>
+    <div class="about-content">
+      <p class="about-lead">I’m interested in how software works beneath the surface — and how good engineering can make everyday things work better.</p>
+      <p>I’m interested in software engineering, problem solving, and practical experiments. I’m drawn to clear, reliable code and projects that make me think carefully about how things work.</p>
+      <a class="text-link" href="https://github.com/Pothal2000" target="_blank" rel="noopener noreferrer">Get to know my code <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <section class="journey-section section-shell" id="journey" aria-labelledby="journey-title">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow"><span class="eyebrow-line"></span> WHAT I'M FOCUSED ON <span class="eyebrow-index">/ 05</span></p>
+        <h2 id="journey-title">Always in progress<span class="accent-period">.</span></h2>
+      </div>
+      <p class="section-intro">The questions I’m spending time with right now — no inflated timelines, just real areas of curiosity.</p>
+    </div>
+    <div class="journey-list">
+      <article class="journey-item"><span class="journey-marker" aria-hidden="true"></span><span class="journey-phase">NOW</span><div><h3>Building ForgeEngine</h3><p>Taking the engine project from concept into software, one thoughtful iteration at a time.</p></div><span class="journey-status">IN DEVELOPMENT</span></article>
+      <article class="journey-item"><span class="journey-marker" aria-hidden="true"></span><span class="journey-phase">ALWAYS</span><div><h3>Getting better at the fundamentals</h3><p>Practising problem solving, system design, and the craft of writing clear code.</p></div><span class="journey-status">ONGOING</span></article>
+      <article class="journey-item"><span class="journey-marker" aria-hidden="true"></span><span class="journey-phase">NEXT</span><div><h3>Exploring what good software can do</h3><p>Following interesting ideas across AI, developer tools, and practical applications.</p></div><span class="journey-status">EXPLORING</span></article>
+    </div>
+  </section>
+
+  <section class="contact-section section-shell" id="contact" aria-labelledby="contact-title">
+    <div class="contact-orbit" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="contact-content">
+      <p class="eyebrow"><span class="eyebrow-line"></span> OPEN CHANNEL <span class="eyebrow-index">/ 06</span></p>
+      <h2 id="contact-title">Have a good<br /><span class="serif-accent">problem to solve?</span></h2>
+      <p>I’m always up for a thoughtful conversation about software, engineering, or an interesting idea.</p>
+      <a class="button button-primary" href="https://github.com/Pothal2000" target="_blank" rel="noopener noreferrer">Find me on GitHub <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer section-shell">
+  <a class="wordmark" href="#home"><span class="wordmark-mark">RP</span><span>RITIK <span class="wordmark-light">POTHAL</span></span></a>
+  <p>Designed with intention. Built with code.</p>
+  <a href="#home" class="back-to-top">BACK TO TOP <span aria-hidden="true">↑</span></a>
+</footer>
+
+@if (commandPaletteOpen()) {
+  <div class="palette-backdrop" (click)="closePalette()" (keydown.escape)="closePalette()">
+    <section class="command-palette" role="dialog" aria-modal="true" aria-labelledby="palette-title" (click)="$event.stopPropagation()" (keydown)="onPaletteKeydown($event)">
+      <h2 id="palette-title" class="visually-hidden">Command palette</h2>
+      <div class="palette-search">
+        <span aria-hidden="true" class="search-glyph">⌕</span>
+        <input #paletteInput type="text" placeholder="Search for a page or action..." aria-label="Search commands" [value]="paletteQuery()" (input)="onPaletteInput($event)" autocomplete="off" />
+        <kbd>ESC</kbd>
+      </div>
+      <p class="palette-label">QUICK NAVIGATION</p>
+      <div class="palette-options" role="listbox" aria-label="Commands">
+        @for (command of filteredCommands(); track command.id; let index = $index) {
+          <button type="button" class="palette-option" role="option" [attr.aria-selected]="selectedCommandIndex() === index" [class.selected]="selectedCommandIndex() === index" (mouseenter)="selectedCommandIndex.set(index)" (click)="executeCommand(command)">
+            <span class="command-leading" aria-hidden="true">{{ command.kind === 'section' ? '↳' : command.kind === 'action' ? '⌘' : '↗' }}</span>
+            <span>{{ command.label }}</span>
+            @if (command.detail) { <span class="command-detail">{{ command.detail }}</span> }
+          </button>
+        } @empty {
+          <p class="palette-empty">No matching commands. Try another search.</p>
+        }
+      </div>
+      <div class="palette-footer"><span><kbd>↑</kbd><kbd>↓</kbd> TO NAVIGATE</span><span><kbd>↵</kbd> TO SELECT</span></div>
+    </section>
+  </div>
+}
